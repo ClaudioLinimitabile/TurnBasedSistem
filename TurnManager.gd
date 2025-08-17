@@ -10,15 +10,17 @@ func NewEntity(Name: String, StarterFlag: bool = false) ->void:
 		assert(TopEntity == null, "Error: more than 1 entity assigned as a start entity")
 		TopEntity = index
 	ENTITY[index]=[Name,StarterFlag]
-	print("🔄 [TurnManager]: added entity: "+Name+" whit Flag: "+str(StarterFlag))
+	print("🔄 [TurnManager]: added entity: "+Name+" whit Flag: "+str(StarterFlag)+" On Index: "+str(index))
 	index += 1
 
 #reverse the turn of the selected name and also reverse the turn of the next entity(that can be the first if the list is finished)
-func ChangeTurn(Name: String):
+func ChangeTurn(Name: String) -> void:
+	for x in ENTITY:
+		ENTITY[x][1] = false
+	
 	for x in ENTITY:
 		if ENTITY[x][0]==Name:
-			ENTITY[x][1] = !ENTITY[x][1]
-			if x+1<ENTITY.size():
+			if x+1<index:
 				ENTITY[x+1][1]= true
 			else:
 				ENTITY[0][1]= true
@@ -31,3 +33,29 @@ func RequestTurn(Name: String) -> bool:
 			if ENTITY[x][1]:
 				return true
 	return false
+
+#delete an entity and shift al the element position
+func RemoveEntity(Name: String) -> void:
+	var counter: int
+	ENTITY.keys().sort()
+	for x in ENTITY:
+		if ENTITY[x][0]==Name:
+			if ENTITY[x][1]:
+				ChangeTurn(Name)
+			print("🔄 [TurnManager]: Entity Removed: "+ENTITY[x][0])
+			ENTITY.erase(x)
+			counter=x
+	for x in ENTITY:
+		if counter < x:
+			ENTITY[x-1]=ENTITY[x]
+		if x==index:
+			ENTITY.erase(x)
+	
+	index -= 1
+
+#clear the entity for a reload or achange screen
+func Reset() -> void:
+	ENTITY.clear()
+	TopEntity = null
+	index = 0
+	print("🔄 [TurnManager]: Reset Eseguito")
