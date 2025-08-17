@@ -45,12 +45,12 @@ func RemoveEntity(Name: String) -> void:
 			print("🔄 [TurnManager]: Entity Removed: "+ENTITY[x][0])
 			ENTITY.erase(x)
 			counter=x
+	ENTITY.keys().sort()
 	for x in ENTITY:
 		if counter < x:
 			ENTITY[x-1]=ENTITY[x]
-		if x==index:
-			ENTITY.erase(x)
-	
+	ENTITY.keys().sort()
+	ENTITY.erase(index)
 	index -= 1
 
 #clear the entity for a reload or achange screen
