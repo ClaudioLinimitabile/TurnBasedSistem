@@ -1,5 +1,7 @@
 extends Node
 
+var DEBUG_MODE = true
+
 var ENTITY = {}
 var index: int = 0
 var TopEntity
@@ -10,7 +12,7 @@ func NewEntity(Name: String, StarterFlag: bool = false) ->void:
 		assert(TopEntity == null, "Error: more than 1 entity assigned as a start entity")
 		TopEntity = index
 	ENTITY[index]=[Name,StarterFlag]
-	print("🔄 [TurnManager]: added entity: "+Name+" whit Flag: "+str(StarterFlag)+" On Index: "+str(index))
+	if DEBUG_MODE: print("🔄 [TurnManager]: added entity: "+Name+" whit Flag: "+str(StarterFlag)+" On Index: "+str(index))
 	index += 1
 
 #reverse the turn of the selected name and also reverse the turn of the next entity(that can be the first if the list is finished)
@@ -42,7 +44,7 @@ func RemoveEntity(Name: String) -> void:
 		if ENTITY[x][0]==Name:
 			if ENTITY[x][1]:
 				ChangeTurn(Name)
-			print("🔄 [TurnManager]: Entity Removed: "+ENTITY[x][0])
+			if DEBUG_MODE: print("🔄 [TurnManager]: Entity Removed: "+ENTITY[x][0])
 			ENTITY.erase(x)
 			counter=x
 	ENTITY.keys().sort()
@@ -58,4 +60,4 @@ func Reset() -> void:
 	ENTITY.clear()
 	TopEntity = null
 	index = 0
-	print("🔄 [TurnManager]: Reset Eseguito")
+	if DEBUG_MODE: print("🔄 [TurnManager]: Reset Eseguito")

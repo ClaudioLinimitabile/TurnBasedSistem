@@ -14,7 +14,5 @@
 3. you can listen in a _process() for the turn for a particular entity to become true whit RequestTurn(Name) it is going to return true if the entity selected has turn true
     **EXAMPLE: if RequestTurn(self.name):**
                 **#your logic here**
-
-## UPDATE:
-### use function reset() to reset the turn manager before changing or reloading a scene or it will keep the null information
-### now you can use removeentity() to clear an entity and shift the position of all the entity
+4. use function reset() to reset the turn manager before changing or reloading a scene or it will keep the null information or use the TurnLoader tool search it on the node list (it has an icon of a clock) whit this tool u can also turn on debug mode whit the editor
+5. you can use removeentity() to clear an entity and shift the position of all the entity
